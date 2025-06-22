@@ -15,7 +15,7 @@ export default function AuthPage() {
     if (!token) {
       router.replace("/");
     } else {
-      router.replace("/tasks?page=1");
+      router.replace("/tasks");
     }
   }, []);
 

@@ -7,7 +7,7 @@ const TaskBackButton = () => {
   const router = useRouter();
 
   const goToPage = useCallback(() => {
-    router.push("/tasks?page=1");
+    router.push("/tasks");
   }, [router]);
 
   return (

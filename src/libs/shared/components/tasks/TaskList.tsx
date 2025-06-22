@@ -5,19 +5,18 @@ import { createAxiosTaskRepository } from "@/libs/tasks/Infractructure/AxiosTask
 import { useCallback, useEffect, useState } from "react";
 import { useFetchAPI } from "../../hooks/useFetchAPI";
 import { TaskListResponse } from "@/libs/tasks/domain/TaskResponse";
-import { useSearchParams } from "next/navigation";
 import TaskItem from "./TaskItem";
 import Pagination from "../../ui/Pagination";
+import LoadingIcon from "../../ui/LoadingIcon";
 
 const TaskList = () => {
   const PER_PAGE = 5;
-  const searchParams = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page") ?? 1))
+  const [currentPage, setCurrentPage] = useState(1)
 
   const repository = createAxiosTaskRepository();
   const service = createTaskService(repository);
 
-  const { data, refresh } = useFetchAPI<TaskListResponse>((signal) =>
+  const { data, refresh, loading } = useFetchAPI<TaskListResponse>((signal) =>
     service.getAll(currentPage, signal)
   , [currentPage]);
 
@@ -27,6 +26,15 @@ const TaskList = () => {
   );
 
   useEffect(()=> { refresh() }, [currentPage])
+
+  if(loading){
+    return (
+      <div className="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700 flex gap-2 align-middle">
+        <LoadingIcon />
+        Cargando...
+      </div>
+    )
+  }
 
   if (!data?.data.length)
     return (
@@ -41,6 +49,8 @@ const TaskList = () => {
         {data?.data.map((task) => (
           <TaskItem key={task.id} {...task} />
         ))}
+
+        <TaskItem title="sdsd" description="fsdfs" id="3" />
       </div>
 
       <Pagination

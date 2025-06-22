@@ -3,6 +3,7 @@
 import { type Task } from "@/libs/tasks/domain/Task";
 import TaskDeleteButton from "./TaskDeleteButton";
 import TaskEditButton from "./TaskEditButton";
+import TaskDetailsButton from "./TaskDetailsButton";
 
 const TaskItem = (task: Task) => {
   return (
@@ -13,6 +14,7 @@ const TaskItem = (task: Task) => {
       <dd className="text-lg font-semibold">{task.description}</dd>
 
       <div className="flex justify-end mt-3">
+        <TaskDetailsButton task={task} />
         <TaskEditButton task={task} />
         <TaskDeleteButton task={task} />
       </div>

@@ -18,7 +18,7 @@ export function useFetchAPI<T>(
   const [error, setError] = useState<unknown>(null);
   const controllerRef = useRef<AbortController | null>(null);
 
-  const fetchData = useCallback(() => {
+  const fetchData = useCallback(async () => {
     if (controllerRef.current) {
       controllerRef.current.abort();
     }
@@ -29,7 +29,7 @@ export function useFetchAPI<T>(
     setLoading(true);
     setError(null);
 
-    callback(controller.signal)
+    await callback(controller.signal)
       .then((res) => setData(res))
       .catch((err) => {
         if (err.name !== "AbortError") {
