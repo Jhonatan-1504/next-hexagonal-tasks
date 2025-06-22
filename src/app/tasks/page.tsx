@@ -1,5 +1,12 @@
-import { redirect } from 'next/navigation'
+import TaskkAddButton from "@/libs/shared/components/tasks/TaskkAddButton";
+import TaskList from "@/libs/shared/components/tasks/TaskList";
 
-export default function TaskPage(){
-  redirect('/tasks/1')
+export default function TaskCurrentPage() {
+  return (
+    <>
+      <TaskkAddButton />
+
+      <TaskList />
+    </>
+  );
 }

@@ -7,6 +7,7 @@ import { createLocalStorageRepository } from "@/libs/auth/infractructure/LocalSt
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { useForm  } from "react-hook-form";
+import Button from "../../ui/Button";
 
 const FormLogin = () => {
   const router = useRouter();
@@ -18,11 +19,11 @@ const FormLogin = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<Auth>();
 
-  const onSubmit = useCallback((auth: Auth) => {
-    service.login(auth).then(() => router.push("/tasks"));
+  const onSubmit = useCallback(async (auth: Auth) => {
+    await service.login(auth).then(() => router.push("/auth"));
   }, []);
 
   return (
@@ -59,12 +60,7 @@ const FormLogin = () => {
         <p className="text-red-400">{errors.password?.message}</p>
       </div>
 
-      <button
-        type="submit"
-        className="w-full cursor-pointer bg-indigo-900 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-      >
-        Sign in
-      </button>
+      <Button type="submit" isLoading={isSubmitting}>Sign in</Button>
     </form>
   );
 };

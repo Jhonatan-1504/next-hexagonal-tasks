@@ -1,11 +1,11 @@
 import TaskForm from "@/libs/shared/components/tasks/TaskForm";
-import TaskkBackButton from "@/libs/shared/components/tasks/TaskkBackButton";
+import TaskBackButton from "@/libs/shared/components/tasks/TaskBackButton";
 import Title from "@/libs/shared/ui/Title";
 
 const DetailsTasksPage = () => {
   return (
     <>
-      <TaskkBackButton />
+      <TaskBackButton />
 
       <Title>Details tasks</Title>
 

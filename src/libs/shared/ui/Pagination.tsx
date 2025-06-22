@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import clsx from "clsx";
 
 type PaginationProps = {
@@ -75,4 +75,4 @@ const Pagination = ({
   );
 };
 
-export default Pagination;
+export default memo(Pagination);

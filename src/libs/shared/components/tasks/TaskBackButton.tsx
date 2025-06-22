@@ -3,11 +3,11 @@
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 
-const TaskkBackButton = () => {
+const TaskBackButton = () => {
   const router = useRouter();
 
   const goToPage = useCallback(() => {
-    router.push("/tasks/1");
+    router.push("/tasks?page=1");
   }, [router]);
 
   return (
@@ -21,4 +21,4 @@ const TaskkBackButton = () => {
   );
 };
 
-export default TaskkBackButton;
+export default TaskBackButton;

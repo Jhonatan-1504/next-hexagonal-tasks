@@ -2,32 +2,31 @@
 
 import { createTaskService } from "@/libs/tasks/application/TaskService";
 import { createAxiosTaskRepository } from "@/libs/tasks/Infractructure/AxiosTaskRepository";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useFetchAPI } from "../../hooks/useFetchAPI";
 import { TaskListResponse } from "@/libs/tasks/domain/TaskResponse";
-import { useParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import TaskItem from "./TaskItem";
 import Pagination from "../../ui/Pagination";
 
 const TaskList = () => {
   const PER_PAGE = 5;
-  const params = useParams();
-  const router = useRouter();
-  const currentPage = Number(params.page ?? 1);
+  const searchParams = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page") ?? 1))
 
   const repository = createAxiosTaskRepository();
   const service = createTaskService(repository);
 
-  const { data } = useFetchAPI<TaskListResponse>((signal) =>
+  const { data, refresh } = useFetchAPI<TaskListResponse>((signal) =>
     service.getAll(currentPage, signal)
   );
 
   const goToPage = useCallback(
-    (page: number) => {
-      router.push(`?page=${page}`);
-    },
-    [router]
+    (page: number) => { setCurrentPage(page) },
+    [currentPage]
   );
+
+  useEffect(()=> { refresh() }, [currentPage])
 
   if (!data?.data.length)
     return (

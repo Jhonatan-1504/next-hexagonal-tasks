@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation'
 
 export default function EditTaskPage(){
-  redirect('/tasks/1')
+  redirect('/tasks?page=1')
 }
