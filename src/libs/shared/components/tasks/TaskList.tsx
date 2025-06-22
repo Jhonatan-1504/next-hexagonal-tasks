@@ -49,8 +49,6 @@ const TaskList = () => {
         {data?.data.map((task) => (
           <TaskItem key={task.id} {...task} />
         ))}
-
-        <TaskItem title="sdsd" description="fsdfs" id="3" />
       </div>
 
       <Pagination
