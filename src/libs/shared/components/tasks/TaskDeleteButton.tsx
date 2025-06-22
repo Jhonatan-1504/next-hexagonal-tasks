@@ -3,7 +3,6 @@
 import { createTaskService } from "@/libs/tasks/application/TaskService";
 import { Task } from "@/libs/tasks/domain/Task";
 import { createAxiosTaskRepository } from "@/libs/tasks/Infractructure/AxiosTaskRepository";
-import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import LoadingIcon from "../../ui/LoadingIcon";
 
@@ -14,15 +13,13 @@ type TaskDeleteButtonProps = {
 const TaskDeleteButton = ({ task }: TaskDeleteButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const router = useRouter();
-
   const repository = createAxiosTaskRepository();
   const service = createTaskService(repository);
 
   const onClick = useCallback(async () => {
     setIsLoading(true);
     try {
-      await service.delete(task.id).then(() => router.refresh());
+      await service.delete(task.id).then(() => window.location.reload() );
     } catch (error) {
     } finally {
       setIsLoading(false);
