@@ -4,7 +4,7 @@ import type { AuthStorageRepository } from "../domain/AuthStorageRepository"
 
 export const createAxiosAuthRepository = (storage: AuthStorageRepository): AuthRepository => ({
   async login(auth) {
-    const { data } = await axiosClient.post<ResponseToken>("/auth/api/token", auth)
+    const { data } = await axiosClient.post<ResponseToken>("/token", auth)
 
     storage.save(data.access)
 

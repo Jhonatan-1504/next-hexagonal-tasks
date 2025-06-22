@@ -19,11 +19,11 @@ const TaskList = () => {
 
   const { data, refresh } = useFetchAPI<TaskListResponse>((signal) =>
     service.getAll(currentPage, signal)
-  );
+  , [currentPage]);
 
   const goToPage = useCallback(
     (page: number) => { setCurrentPage(page) },
-    [currentPage]
+    [currentPage, setCurrentPage]
   );
 
   useEffect(()=> { refresh() }, [currentPage])

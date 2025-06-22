@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createLocalStorageRepository } from "../auth/infractructure/LocalStorageRepository";
 
-const BASE_URL = "http://localhost:3000/api"
+const BASE_URL = "http://localhost:8000/api"
 
 const axiosClient = axios.create({
   baseURL: BASE_URL,
